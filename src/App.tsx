@@ -1,10 +1,14 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.css";
+import Home from "./pages/Home";
+import GlobalStyles from "./Global.style";
 
 function App() {
   return (
-    <div className="star-wars">
-      <h1>Star Wars</h1>
-    </div>
+    <>
+      <GlobalStyles />
+      <Home />
+    </>
   );
 }
 
