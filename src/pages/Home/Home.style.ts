@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HomeContainer = styled.div``;
 
 export const MainStyle = styled.main`
-  padding: 30px 0;
+  padding: 45px 0 30px;
 
   > div {
     max-width: 895px;

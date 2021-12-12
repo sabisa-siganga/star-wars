@@ -6,6 +6,7 @@ const TileContainer = () => {
   return (
     <TileContainerStyle>
       <Tile />
+      <Tile />
     </TileContainerStyle>
   );
 };

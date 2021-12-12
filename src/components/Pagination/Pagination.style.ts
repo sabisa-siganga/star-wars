@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const PaginationStyle = styled.nav`
-  padding-top: 20px;
+  padding-top: 55px;
 
   ul {
     justify-content: center;
@@ -20,6 +20,14 @@ export const PaginationStyle = styled.nav`
       a {
         background-color: #f26f4a;
         color: #fff;
+        width: 80.5px;
+        text-align: center;
+        transition: background-color 0.2s ease-in-out;
+
+        &:hover {
+          color: #fff;
+          background-color: #e26c4a;
+        }
       }
     }
   }
