@@ -8,22 +8,34 @@ import {
   TileMainStyle,
 } from "./Tile.style";
 
-const Tile = () => {
+type Props = {
+  info: {
+    id: number;
+    image: string;
+    name: string;
+    dateOfBirth: string;
+    gender: string;
+  };
+};
+
+const Tile = (props: Props) => {
+  const { info } = props;
+
   return (
-    <TileMainStyle aria-label="Character tile" href="#list">
-      <Picture />
+    <TileMainStyle aria-label="Character tile" to={`/character/${info.id}`}>
+      <Picture url={info.image} />
       <CharacterDetails>
         <CharacterInfo>
-          <h2>Luke Skywalker</h2>
+          <h2>{info.name}</h2>
           <div>
-            <span>Born:</span> 199BBY
+            <span>Born:</span> {info.dateOfBirth}
           </div>
           <div>
-            <span>Gender:</span> aMale
+            <span>Gender:</span> {info.gender}
           </div>
         </CharacterInfo>
         <MoreInfo>
-          <Button as="a" href="#a">
+          <Button as="a" href={`/character/${info.id}`}>
             More info
           </Button>
         </MoreInfo>

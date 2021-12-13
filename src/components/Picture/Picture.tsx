@@ -1,15 +1,19 @@
 import React from "react";
 import { PictureStyle } from "./Picture.style";
 
-const Picture = () => {
+type Props = {
+  url: string;
+  style?: React.CSSProperties;
+};
+
+const Picture = (props: Props) => {
+  const { url, style } = props;
   return (
-    <PictureStyle>
-      <img
-        src="https://starwars-visualguide.com/assets/img/characters/81.jpg"
-        alt=""
-      />
+    <PictureStyle style={style}>
+      <img src={url} alt="" />
     </PictureStyle>
   );
 };
+Picture.defaultProps = { style: undefined };
 
 export default Picture;

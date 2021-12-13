@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const TileMainStyle = styled.a`
+export const TileMainStyle = styled(Link)`
   background-color: #fff;
   padding: 15px 25px;
   display: flex;

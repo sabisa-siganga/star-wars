@@ -7,8 +7,10 @@ const Header = () => {
     <StyledHeader>
       <img src={Logo} alt="" />
       <div>
+        {/* TODO: Change this title using Global state */}
         <div>Characters</div>
       </div>
+      {/* TODO: Add search functionality */}
     </StyledHeader>
   );
 };
