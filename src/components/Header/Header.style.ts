@@ -8,7 +8,6 @@ export const StyledHeader = styled.header`
   font-weight: 500;
   position: relative;
   height: 100px;
-  text-align: center;
   border-bottom: #f26f4a 3px solid;
   padding-top: 30px;
 
@@ -24,10 +23,14 @@ export const StyledHeader = styled.header`
     height: 100%;
     display: flex;
     align-items: center;
+    padding-left: 103px;
 
-    > div {
+    > div:first-child {
       color: #f6f6f6;
-      flex: 0 0 100%;
+      flex-grow: 1;
+      flex-basis: 0;
+      max-width: 100%;
+      padding-top: 32px;
     }
   }
 `;
