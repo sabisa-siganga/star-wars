@@ -24,6 +24,7 @@ export const SearchResults = styled.div`
   margin-top: 6px;
   border-radius: 4px;
   padding: 15px 0;
+  z-index: 2;
 
   ul {
     padding-left: 0;

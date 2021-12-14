@@ -9,23 +9,35 @@ const DATA = [
 ];
 
 const SearchBar = () => {
-  const [results, setResults] = useState<{ name: string; id: number }[]>([]);
+  const [results, setResults] = useState<
+    {
+      name: string;
+      id: number;
+    }[]
+  >([]);
 
   const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
 
-    if (!value) {
+    if (value.length === 0) {
       setResults([]);
+
       return;
     }
 
+    // TODO: Make request to API
+
     const regex = new RegExp(value, "giu");
 
-    const search = DATA.filter((item) => {
-      return regex.test(item.name);
+    const searchInfo = DATA.filter((item) => {
+      if (regex.test(item.name)) {
+        return true;
+      } else {
+        return false;
+      }
     });
 
-    setResults(search);
+    setResults(searchInfo);
   };
 
   return (

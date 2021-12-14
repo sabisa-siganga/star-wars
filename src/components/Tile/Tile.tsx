@@ -13,7 +13,7 @@ type Props = {
     id: number;
     image: string;
     name: string;
-    dateOfBirth: string;
+    birthYear: string;
     gender: string;
   };
 };
@@ -28,7 +28,7 @@ const Tile = (props: Props) => {
         <CharacterInfo>
           <h2>{info.name}</h2>
           <div>
-            <span>Born:</span> {info.dateOfBirth}
+            <span>Born:</span> {info.birthYear}
           </div>
           <div>
             <span>Gender:</span> {info.gender}
