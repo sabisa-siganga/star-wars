@@ -43,7 +43,14 @@ const SearchBar = () => {
             {results.map((result) => {
               return (
                 <li key={result.id}>
-                  <Link to={`/character/${result.id}`}>{result.name}</Link>
+                  <Link
+                    onClick={() => {
+                      setResults([]);
+                    }}
+                    to={`/character/${result.id}`}
+                  >
+                    {result.name}
+                  </Link>
                 </li>
               );
             })}
