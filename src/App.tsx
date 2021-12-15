@@ -1,5 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import "./index.css";
+
 import GlobalStyles from "./Global.style";
 import Footer from "./components/Footer";
 import Header from "./components/Header";

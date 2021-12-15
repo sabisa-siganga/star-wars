@@ -7,6 +7,7 @@ const CustomizedRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/:page" element={<Home />} />
       <Route path="/character/:characterId" element={<CharacterDetails />} />
       <Route
         path="*"

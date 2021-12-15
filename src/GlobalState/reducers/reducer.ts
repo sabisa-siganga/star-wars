@@ -8,9 +8,23 @@ const reducer = (
   }
 ) => {
   switch (action.type) {
-    case "FETCH_CHARACTERS":
+    case "ADD_CHARACTERS":
       return {
         ...state,
+        characterList: {
+          list: action.payload.list,
+          pagination: action.payload.pagination,
+        },
+      };
+    case "UPDATE_CHARACTER":
+      return {
+        ...state,
+        character: action.payload,
+      };
+    case "UPDATE_TITLE":
+      return {
+        ...state,
+        pageTitle: action.payload,
       };
     default:
       return state;

@@ -1,20 +1,56 @@
+import { gql, useQuery } from "@apollo/client";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { GlobalState } from "../../GlobalState/GlobalState";
+import { Character } from "../../interface/character";
 import { SearchBarStyle, SearchResults } from "./SearchBar.style";
 
-const DATA = [
-  { name: "Luke Skywalker", id: 1 },
-  { name: "Darth Vader", id: 4 },
-  { name: "Leia Organa", id: 5 },
-];
+const CHARACTER_SEARCH = gql`
+  query ($search: String!) {
+    characterSearch(search: $search) {
+      id
+      name
+      characterImage
+      birthYear
+      height
+      mass
+      gender
+      hairColor
+      eyeColor
+      skinColor
+      homeWorld {
+        image
+        name
+        population
+        size
+      }
+    }
+  }
+`;
 
 const SearchBar = () => {
-  const [results, setResults] = useState<
-    {
-      name: string;
-      id: number;
-    }[]
-  >([]);
+  const [results, setResults] = useState<Character[]>([]);
+  const [searchValue, setSearchValue] = useState("");
+
+  const navigate = useNavigate();
+
+  const { loading, error, data } = useQuery(CHARACTER_SEARCH, {
+    variables: {
+      search: searchValue,
+    },
+  });
+
+  const { dispatch } = useContext(GlobalState);
+
+  useEffect(() => {
+    if (!loading && !error && data) {
+      const characters = data.characterSearch;
+
+      setResults(characters);
+    }
+  }, [data, error, loading]);
 
   const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
@@ -25,19 +61,23 @@ const SearchBar = () => {
       return;
     }
 
-    // TODO: Make request to API
+    setSearchValue(value);
+  };
 
-    const regex = new RegExp(value, "giu");
+  const onClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    character: Character
+  ) => {
+    event.preventDefault();
 
-    const searchInfo = DATA.filter((item) => {
-      if (regex.test(item.name)) {
-        return true;
-      } else {
-        return false;
-      }
+    setResults([]);
+
+    dispatch({
+      type: "UPDATE_CHARACTER",
+      payload: character,
     });
 
-    setResults(searchInfo);
+    navigate(`/character/${character.id}`);
   };
 
   return (
@@ -56,8 +96,8 @@ const SearchBar = () => {
               return (
                 <li key={result.id}>
                   <Link
-                    onClick={() => {
-                      setResults([]);
+                    onClick={(event) => {
+                      onClick(event, result);
                     }}
                     to={`/character/${result.id}`}
                   >

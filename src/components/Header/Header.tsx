@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyledHeader } from "./Header.style";
 import Logo from "../../assets/img/logo.png";
 import SearchBar from "../SearchBar";
+import { GlobalState } from "../../GlobalState/GlobalState";
 
 const Header = () => {
+  const { pageTitle } = useContext(GlobalState).state;
+
   return (
     <StyledHeader>
       <img src={Logo} alt="" />
       <div>
-        {/* TODO: Change this title using Global state */}
-        <div>Characters</div>
-        {/* TODO: Add search functionality */}
+        <div>{pageTitle}</div>
         <SearchBar />
       </div>
     </StyledHeader>

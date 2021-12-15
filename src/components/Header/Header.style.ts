@@ -4,7 +4,7 @@ export const StyledHeader = styled.header`
   background-color: #7d858a;
   padding: 2px 58px 8px;
   box-shadow: 1px 1px 10px rgb(0 0 0 / 17%);
-  font-size: 37px;
+  font-size: 28px;
   font-weight: 500;
   position: relative;
   height: 100px;

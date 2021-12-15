@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Picture from "../../components/Picture";
 import {
   BackButton,
@@ -8,8 +8,29 @@ import {
   UlStyle,
 } from "./CharacterDetails.style";
 import BackIcon from "../../assets/img/back-arrow.svg";
+import { useContext } from "react";
+import { GlobalState } from "../../GlobalState/GlobalState";
+import { useEffect } from "react";
 
 const CharacterDetails = () => {
+  const { state, dispatch } = useContext(GlobalState);
+  const { character } = state;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch({
+      type: "UPDATE_TITLE",
+      payload: "DETAILS",
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!character.name) {
+      navigate("/");
+    }
+  }, [character.name, navigate]);
+
   return (
     <>
       <BackButton>
@@ -23,25 +44,25 @@ const CharacterDetails = () => {
             <span>
               <Picture
                 style={{ height: "50px", width: "50px" }}
-                url="https://starwars-visualguide.com/assets/img/characters/81.jpg"
+                url={character.characterImage}
               />
             </span>
-            Luke Skywalker
+            {character.name}
           </h1>
           <div className="row">
             <div className="col col-right">
               <UlStyle>
                 <li>
-                  <span>Birth year:</span> 19BBY
+                  <span>Birth year: </span> {` ${character.birthYear}`}
                 </li>
                 <li>
-                  <span>Height:</span> 19BBY
+                  <span>Height: </span> {` ${character.height}`}
                 </li>
                 <li>
-                  <span>Mass:</span> 19BBY
+                  <span>Mass: </span> {` ${character.mass}`}
                 </li>
                 <li>
-                  <span>Gender:</span> 19BBY
+                  <span>Gender: </span> {` ${character.gender}`}
                 </li>
               </UlStyle>
             </div>
@@ -51,19 +72,43 @@ const CharacterDetails = () => {
                 <li>
                   <span>Hair-color:</span>{" "}
                   <DotStyle>
-                    <span style={{ backgroundColor: "blue" }} title="Blue" />
+                    {character.hairColor.map((hair, index) => {
+                      return (
+                        <span
+                          key={`hair_color_${index}`}
+                          style={{ backgroundColor: hair }}
+                          title={hair}
+                        />
+                      );
+                    })}
                   </DotStyle>
                 </li>
                 <li>
                   <span>Skin-color:</span>{" "}
                   <DotStyle>
-                    <span style={{ backgroundColor: "red" }} />
+                    {character.skinColor.map((skin, index) => {
+                      return (
+                        <span
+                          key={`skin_color_${index}`}
+                          style={{ backgroundColor: skin }}
+                          title={skin}
+                        />
+                      );
+                    })}
                   </DotStyle>
                 </li>
                 <li>
                   <span>Eye color:</span>{" "}
                   <DotStyle>
-                    <span style={{ backgroundColor: "yellow" }} />
+                    {character.eyeColor.map((eye, index) => {
+                      return (
+                        <span
+                          key={`eye_color_${index}`}
+                          style={{ backgroundColor: eye }}
+                          title={eye}
+                        />
+                      );
+                    })}
                   </DotStyle>
                 </li>
               </UlStyle>
@@ -77,12 +122,15 @@ const CharacterDetails = () => {
             <div className="col-3">
               <Picture
                 style={{ height: "150px", width: "150px" }}
-                url="https://starwars-visualguide.com/assets/img/characters/81.jpg"
+                url={character.homeWorld.image}
               />
             </div>
             <div className="col">
-              <h3>Tatooine</h3>
-              <h6>182 miles from earth</h6>
+              <h3>{character.homeWorld.name}</h3>
+              <h6>
+                Population is {character.homeWorld.population}, planet size is{" "}
+                {character.homeWorld.size}
+              </h6>
             </div>
           </div>
         </div>

@@ -1,4 +1,8 @@
 import React from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { GlobalState } from "../../GlobalState/GlobalState";
+import { Character } from "../../interface/character";
 import { Button } from "../Button/Button.style";
 import Picture from "../Picture";
 import {
@@ -9,21 +13,35 @@ import {
 } from "./Tile.style";
 
 type Props = {
-  info: {
-    id: number;
-    image: string;
-    name: string;
-    birthYear: string;
-    gender: string;
-  };
+  info: Character;
 };
 
 const Tile = (props: Props) => {
   const { info } = props;
+  const { dispatch } = useContext(GlobalState);
+
+  const navigate = useNavigate();
+
+  const onClick = (
+    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+
+    dispatch({
+      type: "UPDATE_CHARACTER",
+      payload: info,
+    });
+
+    navigate(`/character/${info.id}`);
+  };
 
   return (
-    <TileMainStyle aria-label="Character tile" to={`/character/${info.id}`}>
-      <Picture url={info.image} />
+    <TileMainStyle
+      aria-label="Character tile"
+      href={`/character/${info.id}`}
+      onClick={onClick}
+    >
+      <Picture url={info.characterImage} />
       <CharacterDetails>
         <CharacterInfo>
           <h2>{info.name}</h2>
@@ -35,9 +53,7 @@ const Tile = (props: Props) => {
           </div>
         </CharacterInfo>
         <MoreInfo>
-          <Button as="a" href={`/character/${info.id}`}>
-            More info
-          </Button>
+          <Button onClick={onClick}>More info</Button>
         </MoreInfo>
       </CharacterDetails>
     </TileMainStyle>

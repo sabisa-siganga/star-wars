@@ -1,38 +1,75 @@
-import React from "react";
+import { gql, useQuery } from "@apollo/client";
+import React, { useContext, useEffect } from "react";
+import { GlobalState } from "../../GlobalState/GlobalState";
 import Tile from "../Tile";
 import { TileContainerStyle } from "./TileContainer.style";
 
-// /character/1
-const DUMY_DATA = [
-  {
-    id: 1,
-    image: "https://starwars-visualguide.com/assets/img/characters/1.jpg",
-    name: "Luke Skywalker",
-    birthYear: "199BBY",
-    gender: "Female",
-  },
-  {
-    id: 2,
-    image: "https://starwars-visualguide.com/assets/img/characters/2.jpg",
-    name: "C-3PO",
-    birthYear: "112BBY",
-    gender: "N/A",
-  },
-  {
-    id: 3,
-    image: "https://starwars-visualguide.com/assets/img/characters/3.jpg",
-    name: "C-3PO",
-    birthYear: "112BBY",
-    gender: "N/A",
-  },
-];
+const CHARACTER_LIST_QUERY = gql`
+  query ($page: Int) {
+    characters(page: $page) {
+      list {
+        id
+        name
+        characterImage
+        height
+        birthYear
+        mass
+        gender
+        hairColor
+        eyeColor
+        skinColor
+        homeWorld {
+          image
+          name
+          population
+          size
+        }
+      }
+      pagination {
+        next
+        prev
+        totalPages
+      }
+    }
+  }
+`;
 
-const TileContainer = () => {
+type Props = {
+  page: number;
+};
+
+const TileContainer = (props: Props) => {
+  const { page } = props;
+
+  const { loading, error, data } = useQuery(CHARACTER_LIST_QUERY, {
+    variables: {
+      page,
+    },
+  });
+  const { dispatch } = useContext(GlobalState);
+
+  useEffect(() => {
+    if (!loading && !error && data) {
+      dispatch({
+        type: "ADD_CHARACTERS",
+        payload: {
+          list: data.characters.list,
+          pagination: data.characters.pagination,
+        },
+      });
+    }
+  }, [data, error, loading, dispatch]);
+
+  const { characterList } = useContext(GlobalState).state;
+
   return (
     <TileContainerStyle>
-      {DUMY_DATA.map((character) => {
-        return <Tile info={character} />;
-      })}
+      {!loading &&
+        characterList.list.map((character) => {
+          return <Tile info={character} key={character.id} />;
+        })}
+
+      {loading && <>Loading data</>}
     </TileContainerStyle>
   );
 };

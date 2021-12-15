@@ -1,21 +1,7 @@
-type Character = {
-  name: string;
-  characterImage: string;
-  birthYear: string;
-  height: string;
-  mass: string;
-  gender: string;
-  hairColor: string[];
-  eyeColor: string[];
-  skinColor: string[];
-
-  homeWorld: {
-    image: string;
-    name: string;
-  };
-};
+import { Character } from "../../interface/character";
 
 const character: Character = {
+  id: 0,
   name: "",
   characterImage: "",
   birthYear: "",
@@ -29,6 +15,8 @@ const character: Character = {
   homeWorld: {
     image: "",
     name: "",
+    population: "",
+    size: "",
   },
 };
 

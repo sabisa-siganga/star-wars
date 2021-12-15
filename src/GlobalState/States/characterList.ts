@@ -1,12 +1,7 @@
+import { Character } from "../../interface/character";
+
 type CharacterList = {
-  isLoading: boolean;
-  list: {
-    id: number;
-    image: string;
-    name: string;
-    birthYear: string;
-    gender: string;
-  }[];
+  list: Character[];
   pagination: {
     prev: number;
     next: number;
@@ -15,7 +10,6 @@ type CharacterList = {
 };
 
 const characterList: CharacterList = {
-  isLoading: true,
   list: [],
   pagination: {
     prev: 0,
