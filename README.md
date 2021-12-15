@@ -1,6 +1,19 @@
-# Getting Started with Create React App
+# Star wars react app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Server setup
+
+Before you start the app, do config your backend server using the following guide:
+
+Go to `src/index.tsx` then edit the ApolloClient uri
+
+```ts
+const client = new ApolloClient({
+  uri: "http://localhost:4000",
+  cache: new InMemoryCache(),
+});
+```
 
 ## Available Scripts
 
