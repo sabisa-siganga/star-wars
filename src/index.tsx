@@ -8,18 +8,18 @@ import { BrowserRouter } from "react-router-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000",
+  uri: "https://n7p42.sse.codesandbox.io",
   cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
-  <BrowserRouter>
-    <React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
       <ApolloProvider client={client}>
         <App />
       </ApolloProvider>
-    </React.StrictMode>
-  </BrowserRouter>,
+    </BrowserRouter>
+  </React.StrictMode>,
   document.getElementById("star-wars")
 );
 
